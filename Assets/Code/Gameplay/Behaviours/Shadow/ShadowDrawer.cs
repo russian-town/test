@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -13,7 +14,6 @@ namespace Code.Gameplay.Behaviours.Shadow
         public Light Light;
         public Color Color;
         public Material ShadowMaterial;
-        public Camera Camera;
 
         private Texture2D _texture2D;
 
@@ -23,7 +23,8 @@ namespace Code.Gameplay.Behaviours.Shadow
             var mesh = CreateMesh();
             var material = CreateMaterial();
             var commandBuffer = new CommandBuffer();
-            commandBuffer.DrawMesh(mesh, SpriteRenderer.transform.localToWorldMatrix, material);
+            var position = SpriteRenderer.transform.localToWorldMatrix;
+            commandBuffer.DrawMesh(mesh, position, material);
             Light.AddCommandBuffer(LightEvent.BeforeShadowMapPass, commandBuffer);
         }
 
