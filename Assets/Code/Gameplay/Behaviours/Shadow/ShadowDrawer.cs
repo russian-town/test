@@ -7,7 +7,8 @@ namespace Code.Gameplay.Behaviours.Shadow
     public class ShadowDrawer : MonoBehaviour
     {
         [Range(0.5f, 2f)] public float WarpFactor = 1f;
-        
+        [Range(0.1f, 5f)] public float Size = 1f;
+
         public SpriteRenderer SpriteRenderer;
         public Light Light;
         public Color Color;
@@ -34,19 +35,21 @@ namespace Code.Gameplay.Behaviours.Shadow
             var triangles = new int[sprite.triangles.Length];
 
             foreach (var vertex in sprite.vertices)
-                vertices.Add(new Vector3(vertex.x, 0f, vertex.y));
+                vertices.Add(new Vector3(vertex.x, 0f, vertex.y) * Size);
 
-            for (int i = 0; i < triangles.Length; i++)
+            for (var i = 0; i < triangles.Length; i++)
                 triangles[i] = sprite.triangles[i];
 
             mesh.vertices = vertices.ToArray();
             mesh.triangles = triangles;
             mesh.uv = sprite.uv;
+            
             return mesh;
         }
         
         private Material CreateMaterial()
         {
+            _texture2D = SpriteRenderer.sprite.texture;
             var newTexture2D = new Texture2D(_texture2D.width, _texture2D.height);
             var newColors = new Color[newTexture2D.width * newTexture2D.height];
 
@@ -61,9 +64,10 @@ namespace Code.Gameplay.Behaviours.Shadow
                     float warpYFrac = Mathf.Pow(yFrac, WarpFactor);
 
                     var color = _texture2D.GetPixelBilinear(warpXFrac, warpYFrac);
-
+                    var index = y * newTexture2D.width + x;
+                    
                     if (color.a != 0)
-                        newColors[y * newTexture2D.width + x] = Color;
+                        newColors[index] = Color;
                 }
             }
 
