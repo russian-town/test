@@ -209,13 +209,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.369535, y: 0.09607944, z: -0.038448475, w: 0.9234362}
-  m_LocalPosition: {x: -114.2, y: 3, z: 0}
+  m_LocalRotation: {x: 0.24238478, y: 0.048150383, z: -0.012045415, w: 0.96890974}
+  m_LocalPosition: {x: 0.67, y: 0, z: -2.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 43.62, y: 11.88, z: 0}
+  m_LocalEulerAnglesHint: {x: 28.09, y: 5.69, z: 0}
 --- !u!1 &887353769
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +424,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 37d9ac73d8210fa4692f1ef43abae0fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.9
+      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 37d9ac73d8210fa4692f1ef43abae0fe, type: 3}
       propertyPath: m_LocalPosition.y
@@ -432,7 +432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 37d9ac73d8210fa4692f1ef43abae0fe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.25
+      value: -0.51
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 37d9ac73d8210fa4692f1ef43abae0fe, type: 3}
       propertyPath: m_LocalRotation.w
@@ -552,7 +552,7 @@ Transform:
   m_GameObject: {fileID: 1331166984}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.95, y: 1.2, z: -1.83}
+  m_LocalPosition: {x: -0.73, y: 1.2, z: -0.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -571,10 +571,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WarpFactor: 1
-  Height: 1
-  Width: 1
-  OffSet: 1
-  PositionBySurface: 0.09
+  Width: 0.68
+  OffSet: 0
+  PositionBySurface: 0
   ShadowDisplayTypeId: 1
   SpriteRenderer: {fileID: 1331166986}
   Color: {r: 1, g: 0, b: 0, a: 1}

@@ -9,7 +9,6 @@ namespace Code.Gameplay.Shadow.Behaviours
     public class ShadowDrawer : MonoBehaviour
     {
         [Range(0.5f, 2f)] public float WarpFactor = 1f;
-        [Range(0.1f, 5f)] public float Height = 1f;
         [Range(0.1f, 5f)] public float Width = 1f;
         [Range(0f, 2f)] public float OffSet = 1f;
 
@@ -48,7 +47,7 @@ namespace Code.Gameplay.Shadow.Behaviours
                 PositionBySurface,
                 SpriteRenderer.transform.position.z + OffSet);
             
-            _shadowProjector.Draw(commandBuffer, mesh, position, material);
+            _shadowProjector.Draw(commandBuffer, mesh, position, material, new Vector3(Width, 1f, 1f));
         }
 
         [ContextMenu("Cleanup")]
@@ -62,7 +61,7 @@ namespace Code.Gameplay.Shadow.Behaviours
             var triangles = new int[sprite.triangles.Length];
 
             foreach (var vertex in sprite.vertices)
-                vertices.Add(new Vector3(vertex.x * Width , 0f, vertex.y * Height));
+                vertices.Add(new Vector3(vertex.x, 0f, vertex.y));
 
             for (var i = 0; i < triangles.Length; i++)
                 triangles[i] = sprite.triangles[i];

@@ -5,7 +5,7 @@ namespace Code.Gameplay.Shadow.Behaviours
 {
     public interface IShadowProjector
     {
-        void Draw(CommandBuffer commandBuffer, Mesh mesh, Vector3 position, Material material);
+        void Draw(CommandBuffer commandBuffer, Mesh mesh, Vector3 position, Material material, Vector3 scale);
         void Cleanup();
     }
 }

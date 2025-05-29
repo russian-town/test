@@ -10,26 +10,31 @@ namespace Code.Gameplay.Shadow.Behaviours
 
         private Vector3 _direction;
 
-        public void Draw(CommandBuffer commandBuffer, Mesh mesh, Vector3 position, Material material)
+        public void Draw(CommandBuffer commandBuffer, Mesh mesh, Vector3 position, Material material, Vector3 scale)
         {
             _direction = (Light.transform.position - position).normalized;
-            
+
             commandBuffer.DrawMesh(
                 mesh,
-                Matrix4x4.TRS(GetPosition(), GetRotation(position), Vector3.one),
+                Matrix4x4.TRS(
+                    position + GetPosition(),
+                    GetRotation(position),
+                    scale),
                 material);
+            
             Light.AddCommandBuffer(LightEvent, commandBuffer);
         }
-
+        
         public void Cleanup() => Light.RemoveAllCommandBuffers();
-
+        
         private Vector3 GetPosition()
         {
-            return Quaternion.AngleAxis(Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg, 
-                Vector3.up) * Vector3.up;
+            var rotateAxis = Vector3.Cross(transform.forward, _direction);
+            float angle = Vector3.Angle(rotateAxis, _direction);
+            return Quaternion.Euler(0f, angle, 0f) * Vector3.up;
         }
 
         private Quaternion GetRotation(Vector3 position) =>
-            Quaternion.LookRotation(GetPosition() - position, transform.up);
+            Quaternion.LookRotation(GetPosition() - new Vector3(0f, position.y, 0f), transform.up);
     }
 }

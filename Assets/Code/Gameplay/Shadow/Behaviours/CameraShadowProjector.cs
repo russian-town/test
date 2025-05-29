@@ -10,10 +10,10 @@ namespace Code.Gameplay.Shadow.Behaviours
         
         public float Distance => Vector3.Distance(Camera.transform.position, transform.position);
         
-        public void Draw(CommandBuffer commandBuffer, Mesh mesh, Vector3 position, Material material)
+        public void Draw(CommandBuffer commandBuffer, Mesh mesh, Vector3 position, Material material, Vector3 scale)
         {
             commandBuffer.SetProjectionMatrix(Matrix4x4.Perspective(Camera.fieldOfView, Camera.aspect, Camera.nearClipPlane, Camera.farClipPlane));
-            commandBuffer.DrawMesh(mesh, Matrix4x4.TRS(position, Quaternion.identity, Vector3.one), material);
+            commandBuffer.DrawMesh(mesh, Matrix4x4.TRS(position, Quaternion.identity, scale), material);
             Camera.AddCommandBuffer(CameraEvent, commandBuffer);
         }
 
