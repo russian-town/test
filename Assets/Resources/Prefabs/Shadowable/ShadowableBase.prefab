@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpriteRenderer: {fileID: 0}
-  ShadowMaterial: {fileID: 0}
+  SourceMaterial: {fileID: 2100000, guid: be3c13f46f7867342a7f06bb30163079, type: 2}
   WarpFactor: 0
   Mesh: {fileID: 0}
   Material: {fileID: 0}

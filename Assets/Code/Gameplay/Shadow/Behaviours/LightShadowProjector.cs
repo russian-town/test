@@ -8,33 +8,31 @@ namespace Code.Gameplay.Shadow.Behaviours
         public LightEvent LightEvent;
         public Light Light;
 
-        private Vector3 _direction;
-
-        public void Draw(CommandBuffer commandBuffer, Mesh mesh, Vector3 position, Material material, Vector3 scale)
+        public void Draw(CommandBuffer commandBuffer, Vector3 scale, Shadowable shadowable)
         {
-            _direction = (Light.transform.position - position).normalized;
-
+            var direction = Light.transform.position - shadowable.transform.position;
+            var position = shadowable.transform.position +
+                           Quaternion.Euler(0f, 0f, Light.transform.eulerAngles.y) * direction;
+            var rotation = Quaternion.LookRotation(shadowable.transform.position, Vector3.up);
+            
             commandBuffer.DrawMesh(
-                mesh,
-                Matrix4x4.TRS(
-                    position + GetPosition(),
-                    GetRotation(position),
-                    scale),
-                material);
+                shadowable.Mesh,
+                Matrix4x4.TRS(shadowable.transform.position, rotation * shadowable.transform.rotation, scale),
+                shadowable.Material);
             
             Light.AddCommandBuffer(LightEvent, commandBuffer);
         }
         
         public void Cleanup() => Light.RemoveAllCommandBuffers();
         
-        private Vector3 GetPosition()
+        private Vector3 GetPosition(Vector3 normalizeDirection, float length, Vector3 position)
         {
-            var rotateAxis = Vector3.Cross(transform.forward, _direction);
-            float angle = Vector3.Angle(rotateAxis, _direction);
-            return Quaternion.Euler(0f, angle, 0f) * Vector3.up;
+            var rotateAxis = Vector3.Cross(Vector3.up, normalizeDirection);
+            float angle = Vector3.Angle(rotateAxis, normalizeDirection);
+            return position * angle;
         }
 
-        private Quaternion GetRotation(Vector3 position) =>
-            Quaternion.LookRotation(GetPosition() - new Vector3(0f, position.y, 0f), transform.up);
+        private Quaternion GetRotation(Vector3 direction, float angle) =>
+            Quaternion.LookRotation(new Vector3(0f, 0f, direction.x), Vector3.forward);
     }
 }
