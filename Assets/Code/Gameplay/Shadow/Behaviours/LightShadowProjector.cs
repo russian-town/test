@@ -3,7 +3,7 @@ using UnityEngine.Rendering;
 
 namespace Code.Gameplay.Shadow.Behaviours
 {
-    public class LightShadowProjector : MonoBehaviour, IShadowProjector
+    public class LightShadowProjector : MonoBehaviour
     {
         public LightEvent LightEvent;
         public Light Light;
