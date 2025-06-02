@@ -16,7 +16,7 @@ namespace Code.Gameplay.Shadow.Behaviours
             
             var matrix = Matrix4x4.TRS(
                 shadowable.Position,
-                Quaternion.LookRotation(axis.normalized * dot, Vector3.up),
+                shadowable.Rotation * Quaternion.LookRotation(axis.normalized * dot, Vector3.up),
                 scale);
             
             commandBuffer.DrawMesh(shadowable.Mesh, matrix, shadowable.Material);
