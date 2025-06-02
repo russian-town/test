@@ -10,15 +10,13 @@ namespace Code.Gameplay.Shadow.Behaviours
 
         public void Draw(CommandBuffer commandBuffer, Vector3 scale, Shadowable shadowable)
         {
-            var offset  = shadowable.Position - shadowable.Pivot;
-            var rotationVector = offset/* * Light.transform.eulerAngles.y * Mathf.Deg2Rad*/;
-            var position = rotationVector + shadowable.Pivot;
-            var direction = shadowable.Position - Light.transform.position;
-            var axis = Vector3.Cross(direction - shadowable.Position, position - shadowable.Position);
+            var direction = Light.transform.position - shadowable.Pivot;
+            var axis = Vector3.Cross(direction, shadowable.Pivot);
+            var dot = Vector3.Dot(direction.normalized, Vector3.right);
             
             var matrix = Matrix4x4.TRS(
-                position,
-                Quaternion.LookRotation(axis.normalized + shadowable.Position, Vector3.up),
+                shadowable.Position,
+                Quaternion.LookRotation(axis.normalized * dot, Vector3.up),
                 scale);
             
             commandBuffer.DrawMesh(shadowable.Mesh, matrix, shadowable.Material);

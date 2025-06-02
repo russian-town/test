@@ -12,19 +12,22 @@ namespace Code.Gameplay.Shadow.Behaviours
 
         public Mesh Mesh;
         public Material Material;
-        
+
         private Texture2D _texture2D;
 
         public Vector3 Position => transform.position;
         public Quaternion Rotation => transform.rotation;
-        
+
         private void OnValidate()
         {
-            if(SpriteRenderer == null || SourceMaterial == null)
+            if (SpriteRenderer == null || SourceMaterial == null)
                 return;
-            
-            Pivot = new Vector3(transform.position.x - SpriteRenderer.sprite.bounds.size.x / 2f, transform.position.y - SpriteRenderer.sprite.bounds.size.y / 2f, transform.position.z);
-            
+
+            Pivot = new Vector3(
+                transform.position.x - SpriteRenderer.sprite.bounds.size.x / 2f,
+                transform.position.y - SpriteRenderer.sprite.bounds.size.y / 2f,
+                transform.position.z);
+
             if (Mesh == null)
                 Mesh = CreateMesh();
 
@@ -51,7 +54,7 @@ namespace Code.Gameplay.Shadow.Behaviours
 
             return mesh;
         }
-        
+
         private Material CreateMaterial()
         {
             _texture2D = SpriteRenderer.sprite.texture;
