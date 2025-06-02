@@ -11,16 +11,7 @@ namespace Code.Gameplay.Shadow.Behaviours
         public LightShadowProjector LightShadowProjector;
         public List<Shadowable> Shadowables;
 
-        private void OnValidate()
-        {
-            if(LightShadowProjector
-                   .Light
-                   .GetCommandBuffers(LightShadowProjector.LightEvent)
-                   .Length > 0)
-                return;
-            
-            Draw();
-        }
+        private void OnValidate() => Draw();
 
         [ContextMenu("Draw")]
         public void Draw()

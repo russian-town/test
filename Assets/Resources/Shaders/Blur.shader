@@ -13,8 +13,9 @@ Shader "Unlit/Blur"
             "Queue"="AlphaTest" "IgnoreProjector"="True" "RenderType"="TransparentCutout"
         }
         LOD 100
-
-        Lighting Off
+        
+        Cull Off
+        Lighting On
 
         Pass
         {

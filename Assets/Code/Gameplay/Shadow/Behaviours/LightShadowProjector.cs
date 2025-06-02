@@ -10,29 +10,21 @@ namespace Code.Gameplay.Shadow.Behaviours
 
         public void Draw(CommandBuffer commandBuffer, Vector3 scale, Shadowable shadowable)
         {
-            var direction = Light.transform.position - shadowable.transform.position;
-            var position = shadowable.transform.position +
-                           Quaternion.Euler(0f, 0f, Light.transform.eulerAngles.y) * direction;
-            var rotation = Quaternion.LookRotation(shadowable.transform.position, Vector3.up);
+            var offset  = shadowable.Position - shadowable.Pivot;
+            var rotationVector = offset/* * Light.transform.eulerAngles.y * Mathf.Deg2Rad*/;
+            var position = rotationVector + shadowable.Pivot;
+            var direction = shadowable.Position - Light.transform.position;
+            var axis = Vector3.Cross(direction - shadowable.Position, position - shadowable.Position);
             
-            commandBuffer.DrawMesh(
-                shadowable.Mesh,
-                Matrix4x4.TRS(shadowable.transform.position, rotation * shadowable.transform.rotation, scale),
-                shadowable.Material);
+            var matrix = Matrix4x4.TRS(
+                position,
+                Quaternion.LookRotation(axis.normalized + shadowable.Position, Vector3.up),
+                scale);
             
+            commandBuffer.DrawMesh(shadowable.Mesh, matrix, shadowable.Material);
             Light.AddCommandBuffer(LightEvent, commandBuffer);
         }
-        
-        public void Cleanup() => Light.RemoveAllCommandBuffers();
-        
-        private Vector3 GetPosition(Vector3 normalizeDirection, float length, Vector3 position)
-        {
-            var rotateAxis = Vector3.Cross(Vector3.up, normalizeDirection);
-            float angle = Vector3.Angle(rotateAxis, normalizeDirection);
-            return position * angle;
-        }
 
-        private Quaternion GetRotation(Vector3 direction, float angle) =>
-            Quaternion.LookRotation(new Vector3(0f, 0f, direction.x), Vector3.forward);
+        public void Cleanup() => Light.RemoveAllCommandBuffers();
     }
 }
