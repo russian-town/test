@@ -3,29 +3,28 @@ using UnityEngine;
 
 namespace Code.Gameplay.Shadow.Behaviours
 {
-    public class Shadowable : MonoBehaviour
+    public class ShadowCaster : MonoBehaviour, IShadowCaster
     {
-        public SpriteRenderer SpriteRenderer;
-        public Material SourceMaterial;
-        public float WarpFactor;
-        public Vector3 Pivot;
-
-        public Mesh Mesh;
-        public Material Material;
-
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private Material _sourceMaterial;
+        [SerializeField] private float _warpFactor;
+        
         private Texture2D _texture2D;
 
+        public Vector3 Pivot { get; private set; }
+        public Mesh Mesh { get; private set; }
+        public Material Material { get; private set; }
         public Vector3 Position => transform.position;
         public Quaternion Rotation => transform.rotation;
 
         private void OnValidate()
         {
-            if (SpriteRenderer == null || SourceMaterial == null)
+            if (_spriteRenderer == null || _sourceMaterial == null)
                 return;
 
             Pivot = new Vector3(
-                transform.position.x - SpriteRenderer.sprite.bounds.size.x / 2f,
-                transform.position.y - SpriteRenderer.sprite.bounds.size.y / 2f,
+                transform.position.x - _spriteRenderer.sprite.bounds.size.x / 2f,
+                transform.position.y - _spriteRenderer.sprite.bounds.size.y / 2f,
                 transform.position.z);
 
             if (Mesh == null)
@@ -37,7 +36,7 @@ namespace Code.Gameplay.Shadow.Behaviours
 
         private Mesh CreateMesh()
         {
-            var sprite = SpriteRenderer.sprite;
+            var sprite = _spriteRenderer.sprite;
             var mesh = new Mesh();
             var vertices = new List<Vector3>();
             var triangles = new int[sprite.triangles.Length];
@@ -57,7 +56,7 @@ namespace Code.Gameplay.Shadow.Behaviours
 
         private Material CreateMaterial()
         {
-            _texture2D = SpriteRenderer.sprite.texture;
+            _texture2D = _spriteRenderer.sprite.texture;
             var newTexture2D = new Texture2D(_texture2D.width, _texture2D.height);
             var newColors = new Color[newTexture2D.width * newTexture2D.height];
 
@@ -68,8 +67,8 @@ namespace Code.Gameplay.Shadow.Behaviours
                     float xFrac = x * 1f / (newTexture2D.width - 1f);
                     float yFrac = y * 1f / (newTexture2D.height - 1f);
 
-                    float warpXFrac = Mathf.Pow(xFrac, WarpFactor);
-                    float warpYFrac = Mathf.Pow(yFrac, WarpFactor);
+                    float warpXFrac = Mathf.Pow(xFrac, _warpFactor);
+                    float warpYFrac = Mathf.Pow(yFrac, _warpFactor);
 
                     var color = _texture2D.GetPixelBilinear(warpXFrac, warpYFrac);
                     var index = y * newTexture2D.width + x;
@@ -81,8 +80,8 @@ namespace Code.Gameplay.Shadow.Behaviours
 
             newTexture2D.SetPixels(newColors);
             newTexture2D.Apply();
-            SourceMaterial.mainTexture = newTexture2D;
-            return new Material(SourceMaterial);
+            _sourceMaterial.mainTexture = newTexture2D;
+            return new Material(_sourceMaterial);
         }
     }
 }
