@@ -9,5 +9,6 @@ namespace Code.Gameplay.Shadow.Behaviours
         Material Material { get; }
         Vector3 Position { get; }
         Quaternion Rotation { get; }
+        void SetupTrigger(Vector3 position);
     }
 }

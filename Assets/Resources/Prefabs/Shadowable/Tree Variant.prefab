@@ -96,12 +96,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4275826807351992058, guid: 40ba725fec3b00f468a4b707baf60f25, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4275826807351992058, guid: 40ba725fec3b00f468a4b707baf60f25, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4350885150110013781, guid: 40ba725fec3b00f468a4b707baf60f25, type: 3}
       propertyPath: Mesh
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4350885150110013781, guid: 40ba725fec3b00f468a4b707baf60f25, type: 3}
       propertyPath: Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4350885150110013781, guid: 40ba725fec3b00f468a4b707baf60f25, type: 3}
+      propertyPath: _trigger
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4350885150110013781, guid: 40ba725fec3b00f468a4b707baf60f25, type: 3}
@@ -160,7 +172,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4275826807351992058, guid: 40ba725fec3b00f468a4b707baf60f25, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5904270837699912628, guid: 40ba725fec3b00f468a4b707baf60f25, type: 3}

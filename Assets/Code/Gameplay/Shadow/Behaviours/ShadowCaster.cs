@@ -8,7 +8,8 @@ namespace Code.Gameplay.Shadow.Behaviours
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Material _sourceMaterial;
         [SerializeField] private float _warpFactor;
-        
+        [SerializeField] private CapsuleCollider _trigger;
+
         private Texture2D _texture2D;
 
         public Vector3 Pivot { get; private set; }
@@ -32,6 +33,12 @@ namespace Code.Gameplay.Shadow.Behaviours
 
             if (Material == null)
                 Material = CreateMaterial();
+        }
+
+        public void SetupTrigger(Vector3 position)
+        {
+            _trigger.center = new Vector3(position.x / 2f, -_spriteRenderer.sprite.bounds.size.x / 2f, position.z / 2f);
+            _trigger.height = _spriteRenderer.sprite.bounds.size.x / 2f;
         }
 
         private Mesh CreateMesh()
