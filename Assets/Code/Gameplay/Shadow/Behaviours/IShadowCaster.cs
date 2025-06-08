@@ -9,6 +9,9 @@ namespace Code.Gameplay.Shadow.Behaviours
         Material Material { get; }
         Vector3 Position { get; }
         Quaternion Rotation { get; }
-        void SetupTrigger(Vector3 position);
+        Vector3 Scale { get; }
+        void SetProjectRotation(Quaternion projectRotation);
+        void SetLight(Light light);
+        void SetForward(Vector3 forward);
     }
 }

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5904270837699912628}
   - component: {fileID: 4350885150110013781}
-  - component: {fileID: -4737043559315107789}
   m_Layer: 0
   m_Name: ShadowableBase
   m_TagString: Untagged
@@ -48,27 +47,4 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 0}
   _sourceMaterial: {fileID: 0}
   _warpFactor: 0
-  _trigger: {fileID: -4737043559315107789}
---- !u!136 &-4737043559315107789
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1498384954086718439}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  _trigger: {fileID: 0}

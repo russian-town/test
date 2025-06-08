@@ -13,7 +13,8 @@ namespace Code.Gameplay.Shadow.Behaviours
             var direction = Light.transform.position - shadowCaster.Pivot;
             var axis = Vector3.Cross(direction, shadowCaster.Pivot);
             var dot = Vector3.Dot(direction.normalized, Vector3.right);
-            var lookRotation = Quaternion.LookRotation(axis.normalized * dot, Vector3.up);
+            var forward = axis.normalized * dot;
+            var lookRotation = Quaternion.LookRotation(forward, Vector3.up);
             
             var matrix = Matrix4x4.TRS(
                 shadowCaster.Position,
@@ -22,7 +23,9 @@ namespace Code.Gameplay.Shadow.Behaviours
             
             commandBuffer.DrawMesh(shadowCaster.Mesh, matrix, shadowCaster.Material);
             Light.AddCommandBuffer(LightEvent, commandBuffer);
-            shadowCaster.SetupTrigger(Light.transform.rotation * lookRotation * shadowCaster.Position);
+            shadowCaster.SetProjectRotation(lookRotation);
+            shadowCaster.SetLight(Light);
+            shadowCaster.SetForward(forward);
         }
 
         public void Cleanup() => Light.RemoveAllCommandBuffers();

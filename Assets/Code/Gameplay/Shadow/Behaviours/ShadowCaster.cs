@@ -8,13 +8,21 @@ namespace Code.Gameplay.Shadow.Behaviours
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Material _sourceMaterial;
         [SerializeField] private float _warpFactor;
-        [SerializeField] private CapsuleCollider _trigger;
 
         private Texture2D _texture2D;
 
         public Vector3 Pivot { get; private set; }
+
+        public Vector3 Scale => new(
+            _spriteRenderer.sprite.bounds.size.x,
+            _spriteRenderer.sprite.bounds.size.y,
+            1f);
+
+        public Quaternion ProjectRotation { get; private set; }
+        public Light Light { get; private set; }
         public Mesh Mesh { get; private set; }
         public Material Material { get; private set; }
+        public Vector3 Forward { get; private set; }
         public Vector3 Position => transform.position;
         public Quaternion Rotation => transform.rotation;
 
@@ -35,11 +43,9 @@ namespace Code.Gameplay.Shadow.Behaviours
                 Material = CreateMaterial();
         }
 
-        public void SetupTrigger(Vector3 position)
-        {
-            _trigger.center = new Vector3(position.x / 2f, -_spriteRenderer.sprite.bounds.size.x / 2f, position.z / 2f);
-            _trigger.height = _spriteRenderer.sprite.bounds.size.x / 2f;
-        }
+        public void SetProjectRotation(Quaternion projectRotation) => ProjectRotation = projectRotation;
+        public void SetForward(Vector3 forward) => Forward = forward;
+        public void SetLight(Light light) => Light = light;
 
         private Mesh CreateMesh()
         {
