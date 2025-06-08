@@ -12,15 +12,15 @@ namespace Code.Gameplay.Shadow.Behaviours
 
         private void Update()
         {
-            _direction = _shadowCaster.Forward + _shadowCaster.Light.transform.forward;
-            _center =  Quaternion.Euler(_direction) * _shadowCaster.Position;
+            _direction = GetDirection();
+            _center = Quaternion.Euler(_direction) * _shadowCaster.Position;
 
             if (Physics.BoxCast(
-                    _center - _shadowCaster.Light.transform.forward,
+                    _center,
                     new Vector3(_shadowCaster.Scale.x, 1f, _shadowCaster.Scale.y) / 2f,
-                    GetDirection().normalized,
+                    GetDirection(),
                     out var hit,
-                    _shadowCaster.Rotation * _shadowCaster.ProjectRotation,
+                    _shadowCaster.ProjectRotation,
                     1f))
             {
                 if (hit.transform.TryGetComponent(out IShadowReceiver shadowReceiver))
@@ -39,6 +39,6 @@ namespace Code.Gameplay.Shadow.Behaviours
                 new Vector3(_shadowCaster.Scale.x, 1f, _shadowCaster.Scale.y) / 2f);
         }
 
-        private Vector3 GetDirection() => _direction;
+        private Vector3 GetDirection() => _shadowCaster.Forward + _shadowCaster.Light.transform.forward;
     }
 }
