@@ -8,24 +8,21 @@ namespace Code.Gameplay.Shadow.Behaviours
         public LightEvent LightEvent;
         public Light Light;
 
-        public void Draw(CommandBuffer commandBuffer, Vector3 scale, IShadowCaster shadowCaster)
+        public void Draw(CommandBuffer commandBuffer, Vector3 scale, ShadowCaster shadowCaster)
         {
-            var direction = Light.transform.position - shadowCaster.Pivot;
-            var axis = Vector3.Cross(direction, shadowCaster.Pivot);
-            var dot = Vector3.Dot(direction.normalized, Vector3.right);
-            var forward = axis.normalized * dot;
-            var lookRotation = Quaternion.LookRotation(forward, Vector3.up);
+            var axis = Vector3.Cross(shadowCaster.transform.forward, shadowCaster.transform.right);
+            var lookRotation = Quaternion.LookRotation(axis);
             
             var matrix = Matrix4x4.TRS(
                 shadowCaster.Position,
-                shadowCaster.Rotation * lookRotation,
+                lookRotation,
                 scale);
             
             commandBuffer.DrawMesh(shadowCaster.Mesh, matrix, shadowCaster.Material);
             Light.AddCommandBuffer(LightEvent, commandBuffer);
             shadowCaster.SetProjectRotation(lookRotation);
             shadowCaster.SetLight(Light);
-            shadowCaster.SetForward(forward);
+            shadowCaster.SetForward(axis);
         }
 
         public void Cleanup() => Light.RemoveAllCommandBuffers();

@@ -121,6 +121,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4350885150110013781, guid: 40ba725fec3b00f468a4b707baf60f25, type: 3}
+      propertyPath: _warpFactor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4350885150110013781, guid: 40ba725fec3b00f468a4b707baf60f25, type: 3}
       propertyPath: ShadowMaterial
       value: 
       objectReference: {fileID: 2100000, guid: be3c13f46f7867342a7f06bb30163079, type: 2}
@@ -130,6 +134,14 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: be3c13f46f7867342a7f06bb30163079, type: 2}
     - target: {fileID: 4350885150110013781, guid: 40ba725fec3b00f468a4b707baf60f25, type: 3}
       propertyPath: SpriteRenderer
+      value: 
+      objectReference: {fileID: 1204640025517948590}
+    - target: {fileID: 4350885150110013781, guid: 40ba725fec3b00f468a4b707baf60f25, type: 3}
+      propertyPath: _sourceMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: be3c13f46f7867342a7f06bb30163079, type: 2}
+    - target: {fileID: 4350885150110013781, guid: 40ba725fec3b00f468a4b707baf60f25, type: 3}
+      propertyPath: _spriteRenderer
       value: 
       objectReference: {fileID: 1204640025517948590}
     - target: {fileID: 5904270837699912628, guid: 40ba725fec3b00f468a4b707baf60f25, type: 3}
