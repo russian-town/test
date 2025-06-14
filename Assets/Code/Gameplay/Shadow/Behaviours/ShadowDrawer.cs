@@ -23,9 +23,11 @@ namespace Code.Gameplay.Shadow.Behaviours
 
             foreach (var shadowCaster in _shadowCasters)
             {
+                var localScale = shadowCaster.transform.localScale;
+                
                 _lightShadowProjector.Draw(
                     commandBuffer,
-                    new Vector3(_width, 1f, 1f),
+                    new Vector3(localScale.x * _width, localScale.y, localScale.z),
                     shadowCaster);
             }
         }
