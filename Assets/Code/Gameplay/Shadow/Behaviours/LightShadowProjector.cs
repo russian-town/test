@@ -16,7 +16,7 @@ namespace Code.Gameplay.Shadow.Behaviours
             var matrix = Matrix4x4.TRS(
                 shadowCaster.Position,
                 shadowCaster.Rotation * lookRotation,
-                scale);
+                new Vector3(scale.x, scale.z, scale.y));
             
             commandBuffer.DrawMesh(shadowCaster.Mesh, matrix, shadowCaster.Material);
             Light.AddCommandBuffer(LightEvent, commandBuffer);
